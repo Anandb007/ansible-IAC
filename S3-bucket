@@ -1,0 +1,12 @@
+---
+ - name: play for creating an aws ec2 instance
+   hosts: localhost
+   connection: local
+   gather_facts: false
+   tasks:
+   - name creating S3 buckets
+     amazon.aws. aws_s3
+     name:
+     region:
+     aws_access_key:
+     aws_secrete_key:
