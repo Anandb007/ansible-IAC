@@ -1,0 +1,46 @@
+crete 2 role:
+how to crete role: ansible-galaxy init install (main.ymal)
+			 ansible-galaxy init copy(main.ymal)
+crete playbook:	 ansible-playbook runscript.yml
+
+
+#role for install (open mail file give details)
+---
+ - name: installing apache, mysql & PHP
+   yum:
+    name:
+	    - httpd
+	    - mysql-community-server
+	    - php
+	    - php-mysql
+   state: installed
+	- name: enabling httpd service and start the service
+	  service:
+		  name: httpd
+			enabled: yes
+			state: started
+	- name: enabling mysql service and start the service
+	  service:
+		  name: mysql
+			enabled: yes
+			state: started 
+
+#role for copy
+---
+ - name: copying your php file in the /var/ww/html
+   copy:
+	   src: /root/ansibleplaybook/index.php
+		 sest: /var/www/html/index.php
+		 force: yes
+	 modify:
+	     - restart httpd service
+
+
+#ansible-playbook for task:
+---
+ - hosts: testserver
+   remote_user: root
+
+	 roles:
+	   - install
+		 - copy
